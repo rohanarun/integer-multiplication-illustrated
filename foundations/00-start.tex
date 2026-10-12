@@ -1,0 +1,63 @@
+\guidechapter{Start with the problem, not the symbols}{First pass: ordinary arithmetic is enough for this opening.}
+
+You have two long strings of binary digits. You want their exact product.
+The research question is how the required work grows when the strings become
+longer. It is not a question about whether multiplication is possible, and it
+is not a promise that a new program will beat your calculator tomorrow.
+
+Think of three bills. There is a bill for combining numbers, a bill for moving
+the right pieces next to one another, and a bill for making sure the final
+answer is exact. This paper proposes a way to reduce the first two bills
+together while still paying the third. The illustrations below show actual
+data paths: the left picture changes where records are stored; the right
+picture connects pairs that are combined at successive transform levels.
+
+\explfigure{11-proof-roadmap}{Two distinct jobs inside fast multiplication.}{
+Left: records must be brought into a useful order. Right: an eight-entry
+butterfly network combines entries differing in one address bit per level.
+These are small structural illustrations, not the paper's enormous circuit.}
+
+\paragraph{What is a bit?}
+A bit is a zero or a one. In decimal, the places are ones, tens, hundreds.
+In binary, they are ones, twos, fours, eights. Thus binary $1011$ means
+$1\cdot8+0\cdot4+1\cdot2+1\cdot1=11$. This input has four bits.
+The paper writes $n$ for the bit length, not the number's value. Leading
+zeroes are allowed: $0011$ is also a four-bit input, even though its value is three.
+
+\paragraph{What does a logarithm count?}
+For powers of two, $\log_2 n$ counts how many doublings take one to $n$.
+Since $1,2,4,8,16$ takes four doublings, $\log_2 16=4$.
+The distinction between $n$ and $\log_2 n$ is crucial. When a bit string
+doubles in length, $n$ doubles but $\log_2 n$ increases by just one.
+
+\paragraph{What does a running-time formula mean?}
+Schoolbook multiplication pairs each of roughly $n$ digits with roughly
+$n$ others, suggesting $n^2$ elementary digit products. More sophisticated
+algorithms avoid doing all those pairs separately. A bound such as
+$O(n\log n)$ says that, beyond a threshold, the work is at most a fixed
+constant times $n\log n$. It does not specify the constant, the threshold,
+or the number of seconds on a particular computer.
+
+\explfigure{12-growth-rates}{Growth rates need the right scale.}{
+Left: the vertical axis is the logarithm of a formula's value, so exponentially
+different values fit on one plot. Right: dividing the toy improved formula
+by $n\log_2 n$ exposes its smaller growth. The saving $1/4$ is deliberately
+large enough to see; the original paper uses $2^{-182}$. Neither panel is a
+measurement of a multiplication program.}
+
+\paragraph{Two ways to read this edition.}
+For a first pass, follow the worked examples, pictures, and ``What to carry
+forward'' paragraphs. They build the vocabulary before the technical argument
+uses it. For a second pass, read the equations and then the corresponding
+original proofs in the expanded paper. Understanding why the pieces fit is a
+different goal from checking every theorem. The guide supports the first goal
+and provides a route toward the second; it does not turn the full proof into
+elementary arithmetic.
+
+\paragraph{A quick check.}
+If an input grows from 16 bits to 32 bits, $n$ doubles and $\log_2 n$ grows
+from four to five. The value of the input integer can be vastly larger than 32.
+Keeping these three quantities separate prevents many later confusions.
+
+\takeaway{The paper tries to save a little work at an enormous number of
+scales. To understand it, follow both the arithmetic and the movement of data.}

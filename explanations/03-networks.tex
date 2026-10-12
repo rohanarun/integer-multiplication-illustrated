@@ -19,8 +19,9 @@ identity over an additive ring, not a proposed implementation of the full
 network. In characteristic two, addition and subtraction both become XOR.
 
 \explfigure{03-restoration}{Unknown does not mean unusable.}{
-Every intermediate occurrence of $a$ is shown. This small example illustrates
-why starting scratch at zero would be an insufficient test.}
+The plotted registers start at $x=3,y=5,a=7$. The target ends at eight,
+while source and scratch return to three and seven. The symbolic identity
+above explains why this works for arbitrary initial values, not just this trace.}
 
 \paragraph{How the actual network isolates the right source.}
 The original construction indexes values by triples $S,T\subseteq[h]$.
@@ -54,8 +55,9 @@ incidence of that gate. With unrelated frames $D_1,D_2$, the desired identity
 does not follow.
 
 \explfigure{04-common-frame}{The diagram commutes because the frame is shared.}{
-Horizontal arrows combine roles. Vertical arrows change the representation
-within an array. These are different operations on different indices.}
+Each panel is an actual two-by-two array. The bottom row rotates the address
+grid of the top row. Adding the bottom-left arrays gives the bottom-right
+array, exactly the rotation of the top-row sum.}
 
 Between vertices with frames $D_u,D_v$, the change is $D_vD_u^{-1}$.
 Following the invariant through the circuit gives the implemented operator

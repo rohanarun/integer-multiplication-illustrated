@@ -1,0 +1,34 @@
+\guidechapter{Why improving one part may change nothing}{The final saving is limited by the weakest margin.}
+
+Suppose three operations have normalized costs $p^{0.80}$, $p^{0.97}$,
+and $p^{0.90}$. Their margins below a full power of $p$ are $0.20$,
+$0.03$, and $0.10$. For large $p$, the term $p^{0.97}$ grows fastest
+and controls the exponent of the total.
+
+Make the first operation much cheaper, changing $p^{0.80}$ to $p^{0.60}$.
+Its margin improves to $0.40$, yet $p^{0.97}$ still controls the total.
+Alternatively, improve the second operation to $p^{0.92}$. Now the minimum
+margin is $0.08$, so the combined exponent can improve as well, subject
+to its remaining overhead and strict-slack requirements.
+
+\explfigure{22-bottleneck}{A local gain need not improve the overall exponent.}{
+Each row is a separate toy profile, not a historical result. Larger margins
+are better. The printed minimum stays at $0.03$ when an already easy term
+improves, and rises to $0.08$ when the limiting term improves.}
+
+The source's final accounting has seven dominant terms instead of three.
+The figure in the next technical explanation computes their actual original
+margins. Its logarithmic scale makes extremely small positive values visible.
+That plot reverses the visual convention: farther right means a smaller
+margin because the axis is minus the logarithm of the margin. Always read
+the axis before deciding which bar is better.
+
+\paragraph{Why a little extra room is needed.}
+A cost may also carry factors such as $(\log p)^2$. Such a factor grows
+more slowly than any fixed positive power $p^\rho$, but it is not a
+constant. Choosing a final saving strictly below the available margin leaves
+room to absorb these factors for sufficiently large $p$. Equality at the
+boundary would not justify the same argument.
+
+\takeaway{Track the full cost profile. An improvement is useful at the
+headline level only when all the limiting terms and interfaces permit it.}

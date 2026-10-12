@@ -1,0 +1,59 @@
+\guidechapter{Vectors, rank, and a frame you can draw}{The geometry behind the technical vocabulary.}
+
+A vector can be as simple as a pair of numbers, such as $(1,2)$.
+Draw it as an arrow from the origin to that point. Adding vectors adds their
+coordinates. Multiplying one by a number scales the arrow. A subspace is a
+collection closed under these operations: a line through the origin is one
+example, and the whole plane is another.
+
+A matrix is a rule for combining input coordinates into output coordinates.
+Its columns tell you where the basic input directions go. If every output
+lies on a single line, there is only one independent output direction, even
+if the matrix has many nonzero entries. That number of independent directions
+is its rank.
+
+\explfigure{17-rank-directions}{Count independent directions, not arrows.}{
+On the left, $(2,2)$ is twice $(1,1)$: both arrows lie on one line.
+On the right, no multiple of $(1,0)$ reaches $(0,1)$: both directions
+are needed. These represent ranks one and two respectively.}
+
+The matrices
+\[
+ \begin{pmatrix}1&2\\1&2\end{pmatrix}
+ \quad\hbox{and}\quad
+ \begin{pmatrix}1&0\\0&1\end{pmatrix}
+\]
+have ranks one and two. The first has four nonzero entries but lower rank.
+For that first matrix, input $(s,t)$ produces $(s+2t,s+2t)$, always on the
+diagonal line. The second can produce every point in the plane. This is why
+counting matrix entries would miss the saving sought by the paper.
+
+\paragraph{A frame is a consistent representation rule.}
+Take $D$ to rotate every vector a quarter-turn counterclockwise. The logical
+value $(1,0)$ is stored as $(0,1)$. The logical value $(0,1)$ is stored as
+$(-1,0)$. Adding the stored values gives $(-1,1)$, exactly the rotation of
+the logical sum $(1,1)$. Both inputs used the same rule, so addition remained
+meaningful.
+
+\explfigure{18-frame-example}{Mixing representations changes the answer.}{
+Blue and gold are the two inputs; teal is their sum. Rotating both inputs
+rotates the correct sum. Rotating just the first produces $(0,2)$, which
+is not the intended rotated result $(-1,1)$. Overlapping arrows in the
+right panel deliberately show the two equal directions.}
+
+In the paper, a frame acts on an entire address-indexed array rather than
+just a two-number vector. The same law of linearity applies. The later
+two-by-two tile diagram gives a concrete array version: rotate the address
+grid of each input and then add matching cells. You get the rotated sum.
+
+\paragraph{Why changing frames can be worthwhile.}
+One representation may make a particular gate cheap while another makes
+the next gate cheap. The algorithm can switch, provided it pays for switching
+and maintains the interpretation consistently. Its endpoint frames determine
+the intended final operation; its intermediate frames are chosen to keep
+the sum of transition costs small. The actual proof uses more sophisticated
+operators than rotations, and verifies their residual ranks explicitly.
+
+\takeaway{Rank measures independent directions. A frame is an invertible
+representation. Shared frames preserve linear gates; unpriced frame changes
+would hide real work.}

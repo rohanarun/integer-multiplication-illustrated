@@ -1,0 +1,41 @@
+\guidechapter{A matrix transpose is a physical rearrangement}{Follow all nine records.}
+
+Read the $3\times3$ grid row by row: $0,1,2,3,4,5,6,7,8$.
+Now read it column by column: $0,3,6,1,4,7,2,5,8$.
+The records have not changed internally. Their positions in the stream have.
+The crossing paths show the exact permutation, including the records whose
+positions stay fixed.
+
+\explfigure{16-tape-order}{The geometry of one concrete data move.}{
+Colors identify original rows; every numbered record is connected to its
+destination. The top scan arrow represents a tape head moving through
+consecutive positions. It cannot teleport to the next useful record.}
+
+A computer program can write a new indexing formula in one line. That does
+not prove that the underlying records have been physically rearranged in one
+step. In the paper's machine model, a head moves at most one tape cell per
+step. Large data movement must therefore be implemented and charged.
+
+\paragraph{Why a calculation can help perform a permutation.}
+For a pair of bits, three XOR updates exchange their values:
+\[
+ x\leftarrow x\mathbin{\mathrm{XOR}}y,\quad
+ y\leftarrow y\mathbin{\mathrm{XOR}}x,\quad
+ x\leftarrow x\mathbin{\mathrm{XOR}}y.
+\]
+For initial $(x,y)=(1,0)$ the states are $(1,0),(1,1),(0,1)$.
+XOR is addition modulo two: equal bits give zero and different bits give one.
+Intermediate values are combinations, yet the final result is a pure swap.
+The large construction also uses intermediate linear combinations to achieve
+an overall array operation. This two-bit identity only explains the possibility;
+it does not establish the large construction's speed.
+
+\paragraph{Keep two meanings of geometry separate.}
+The grid here represents positions on an array. The subspaces and ranks used
+later represent algebraic directions of operators on such arrays. A picture
+of a short physical path is not by itself a low-rank certificate, and a
+low-rank identity is not by itself a tape-time bound. The argument needs a
+precise connection between them.
+
+\takeaway{The stored order is part of the problem. A useful reordering
+must be realized by actual steps, not just by renaming indices.}

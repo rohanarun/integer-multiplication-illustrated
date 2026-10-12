@@ -1,0 +1,80 @@
+{
+  "evaluation_samples": {
+    "0": 12,
+    "1": 25,
+    "-1": 3
+  },
+  "recovered_coefficients": [
+    12,
+    11,
+    2
+  ],
+  "pattern_sum": [
+    8,
+    4,
+    2,
+    2
+  ],
+  "four_sample_dft": [
+    "16",
+    "(6-2j)",
+    "4",
+    "(6+2j)"
+  ],
+  "shared_frame_result": [
+    -1,
+    1
+  ],
+  "mixed_frame_result": [
+    0,
+    2
+  ],
+  "intersection_net": [
+    0,
+    0,
+    0,
+    1
+  ],
+  "toy_error_bounds": [
+    "1/100",
+    "3/100",
+    "6/25",
+    "24/25"
+  ],
+  "toy_profile_minima": [
+    "3/100",
+    "3/100",
+    "2/25"
+  ],
+  "scope": "Exact pedagogical examples, not the original asymptotic theorem.",
+  "array_rotation_commutes_with_addition": true,
+  "permutation_example_product": [
+    6,
+    10,
+    6,
+    4
+  ],
+  "register_trajectory": {
+    "x": [
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "y": [
+      5,
+      -2,
+      -2,
+      8,
+      8
+    ],
+    "a": [
+      7,
+      7,
+      10,
+      10,
+      7
+    ]
+  }
+}

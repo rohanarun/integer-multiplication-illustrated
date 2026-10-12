@@ -9,10 +9,15 @@ For $(u,v)=(6,2)$ the outputs are $(4,2)$. Recover the original by
 $u=4+2$, $v=4-2$. The factor $1/2$ matters: this is not the unnormalized
 Hadamard matrix, nor the unitary matrix with factor $1/\sqrt2$.
 
-\explfigure{06-butterfly}{A butterfly and a two-axis layer.}{
-The lower example uses the tensor product $H_0\otimes H_0$ on four entries.
-One axis gives $[6,2,2,0]$, and the other gives $[4,1,2,1]$.
-The entries are examples, not intermediate values from the large network.}
+\explfigure{06-butterfly}{Follow the two arithmetic branches.}{
+Both inputs reach both operations. The plus branch returns four and the minus
+branch returns two after division by two. The entries are a worked example,
+not intermediate values from the large network.}
+
+For a two-axis example, start with the four entries $[8,4,2,2]$ in address
+order $00,01,10,11$. Applying $H_0$ to adjacent pairs gives $[6,2,2,0]$.
+Applying it along the other bit pairs positions zero with two and one with
+three, giving $[4,1,2,1]$. This is the action of $H_0\otimes H_0$.
 
 If every input has complex magnitude at most $M$, each output also does:
 $|u\pm v|/2\le(|u|+|v|)/2\le M$. Thus the completed operation is

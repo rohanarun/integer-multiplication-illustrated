@@ -146,7 +146,7 @@ ax.barh(yy,x,color=[GOLD if g==min(gs) else BLUE for g in gs],height=.58)
 ax.axvline(182,color=TEAL,ls='--',label=r'Target $\kappa=2^{-182}$')
 ax.set_yticks(yy,labels);ax.invert_yaxis();ax.set_xlim(0,206)
 ax.set_xlabel(r'$-\log_2(g_i)$: farther right means a smaller margin (worse)')
-for i,v in enumerate(x):ax.text(v+2,i,f'{v:.2f}',va='center',fontsize=9)
+for i,v in enumerate(x):ax.text(v+2,i,f'{max(0,v):.2f}',va='center',fontsize=9)
 ax.legend(loc='lower right',fontsize=9);fig.tight_layout();save(fig,'10-margins')
 
 # Independent exact computations for the pedagogical examples.

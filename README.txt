@@ -3,7 +3,8 @@ INTEGER MULTIPLICATION: ILLUSTRATED READING EDITION
 Deliverables
   output/pdf/illustrated-guide.pdf  - the added explanation by itself
   output/pdf/expanded-paper.pdf    - explanations interleaved with original proofs
-  figures/                        - ten new vector PDF figures and PNG previews
+  figures/                        - 24 vector PDF figures and PNG previews
+  foundations/                    - ten prerequisite chapters with examples
   explanations/                   - editable LaTeX explanatory chapters
   original/                       - unchanged original manuscript source
   source-manifest.json             - upstream source hashes and source URLs
@@ -16,11 +17,13 @@ adc7f1241b42e322a6451854ab7e4b4c146bf78a. Its displayed kappa is the original
 states an unconditional theorem; this explanatory work does not independently
 validate it. The CrocSwap project retains conditional all-size interfaces.
 
-Rebuild on a machine with Python, NumPy, Matplotlib and Tectonic:
-  python3 generate_figures.py
+Rebuild on a machine with Python, NumPy, Matplotlib, PyMuPDF, Pillow and Tectonic:
+  python3 generate_concrete.py
   python3 build_editions.py
   tectonic --keep-logs -o output/pdf illustrated-guide.tex
   tectonic --keep-logs -o output/pdf expanded-paper.tex
+  python3 verify_and_render.py
+  python3 package_release.py
 
 Use a mounted writable external SSD for every generated output, temporary
 directory, cache and preview in the user's environment. Set TMPDIR and

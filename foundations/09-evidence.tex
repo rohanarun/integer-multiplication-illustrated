@@ -1,0 +1,40 @@
+\guidechapter{What a successful check actually tells us}{Three claims that should not be confused.}
+
+There are different meanings of ``it works.'' A circuit may return the
+right values on a specified finite set of inputs. A physical program may
+execute the circuit with a proved resource bound. A theorem may cover every
+input length, including sizes no experiment can run. Each is valuable, but
+they are different statements.
+
+\explfigure{23-proof-obligations}{Read the claim at the level its evidence supports.}{
+The columns separate finite algebra, physical implementation, and all-size
+analysis. They are obligations to connect, not competing ways of proving the
+same statement.}
+
+\paragraph{A concrete example.}
+The register plot shows that the four updates work when the scratch value
+starts at seven. The symbolic calculation proves restoration for arbitrary
+values in its stated ring. Neither statement tells us how much tape
+movement an enormous array implementation needs. That requires another
+argument. Similarly, verifying the seven rational margins checks arithmetic
+within a cost model; it does not establish every algorithmic premise of that
+model.
+
+\paragraph{Why the guide labels toy examples.}
+Large, visible exponent gaps are useful for learning but would misrepresent
+the paper if presented as its measured speedup. Small matrices and arrays
+can demonstrate an invariant without being the actual finite construction.
+The captions say which numbers come from the source and which are teaching
+examples. The new figure generators check the displayed arithmetic so that
+the illustrations explain real identities rather than suggestive pictures.
+
+\paragraph{After this guide.}
+You should be able to describe why convolution helps, why moving data costs
+time, why common frames preserve addition, how a weighted recursion saves
+an exponent, and why recovery requires a strict error budget. Following
+every detail of the source theorem still requires further study of linear
+algebra, Fourier analysis, and complexity proofs. The expanded edition puts
+the original arguments immediately after their explanatory material.
+
+\takeaway{Understanding the architecture is a substantial step. It is
+not the same claim as having independently verified every part of the theorem.}

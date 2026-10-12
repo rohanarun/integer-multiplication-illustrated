@@ -1,0 +1,36 @@
+\guidechapter{Why more calls can still mean less work}{Count the size of each job as well as the jobs.}
+
+Suppose a width-doubling step makes three smaller calls, each on half the
+data volume. Three calls sounds worse than two, but it does not mean three
+full-size jobs. Their total visited volume is $3\cdot(V/2)=1.5V$.
+At the next depth there are nine calls on volume $V/4$ each, totaling
+$2.25V$. The circle areas in the tree encode those shrinking volumes.
+
+\explfigure{19-recursion-ledger}{The growth factor is calls times relative volume.}{
+This toy tree uses $m=2$, $W=2$, $s=3$. Its first three levels visit
+$V$, $1.5V$, and $2.25V$. The right chart compares this with doubling at
+every level. Calls can run sequentially and reuse storage; the total visited
+volume describes work, not peak memory.}
+
+After $j$ levels, there are $3^j$ calls and each has volume $V/2^j$.
+Multiplying gives $V(3/2)^j$. Meanwhile the width factor is $2^j$.
+To express the work as a power of width, solve $2^q=3/2$. This gives
+$q=\log_2(3/2)$, about $0.585$, below one. The corresponding toy cost
+grows more slowly than the width itself.
+
+\paragraph{What the real proof must add.}
+The tree charges only the recursive contributions shown. A real algorithm
+also scans, copies, arranges, and restores records at its nodes. It must bound
+that overhead, handle widths that do not fit the tree exactly, and keep one
+fixed machine description. The source reserves strict slack in its recurrence
+inequality for these tasks. Its numerical saving is much smaller than the
+one drawn here.
+
+\paragraph{A diagnostic question.}
+What if every one of the three children actually processed the whole volume
+$V$? The multiplier would be three, not $3/2$, and this argument would no
+longer beat a factor of two. This is why the paper's division by $W$ is an
+implementation obligation rather than a cosmetic normalization.
+
+\takeaway{A recurrence counts weighted work. The weight is the data volume
+of each child, including the effects of the required layout and workspace.}

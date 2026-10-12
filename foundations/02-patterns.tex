@@ -1,0 +1,57 @@
+\guidechapter{What a transform actually changes}{Replace a list of values by weights of simple patterns.}
+
+A transform is a change in description. Consider the four numbers
+$[8,4,2,2]$. Instead of listing those values directly, describe them as a
+sum of four simple patterns. The figure displays each contribution and the
+result. Add the first point from each of the first four plots: $4+3+0+1=8$.
+At the second point, $4+0+1-1=4$. Repeat at the remaining positions to get
+two and two.
+
+\explfigure{15-frequency-patterns}{The same four numbers in a pattern description.}{
+Average $[4,4,4,4]$, cosine contribution $[3,0,-3,0]$, sine contribution
+$[0,1,0,-1]$, and alternating contribution $[1,-1,1,-1]$ sum exactly to
+$[8,4,2,2]$. Lines connect four discrete samples; this is not measured sound.}
+
+Why call these frequencies? The average does not oscillate. The cosine and
+sine patterns complete one cycle over the four positions, with different
+starting phases. The alternating pattern changes sign at every step.
+In this real-pattern basis, the weights are $4,3,1,1$. These are not the
+four complex Fourier coefficients in the paper's convention; they are an
+equivalent elementary way to display the same real data.
+
+\paragraph{Where complex numbers come in.}
+A complex number is a pair of real coordinates written $a+ib$.
+Addition works coordinate by coordinate. The rule $i^2=-1$ makes
+multiplication by $i$ turn the coordinate plane through a quarter-circle:
+$(a,b)$ becomes $(-b,a)$. This is useful bookkeeping for oscillating patterns;
+it does not mean the input integers or their final product are imaginary.
+
+\explfigure{24-complex-turns}{A phase is a position around a circle.}{
+Multiplication by $i$ cycles through $1,i,-1,-i,1$. Each point has magnitude
+one. The four turns provide the simplest visible example of roots of unity.}
+
+For four samples, the ordinary unnormalized Fourier coefficients of
+$[8,4,2,2]$ are $[16,6-2i,4,6+2i]$ with the negative-exponent convention.
+Dividing by four gives the normalized version
+$[4,1.5-0.5i,1,1.5+0.5i]$. The average is four; the paired complex entries
+encode the cosine and sine contributions together. You do not need to derive
+these complex entries to follow the rest of the guide, but the distinction
+explains why transform scale factors cannot be guessed.
+
+\paragraph{Why this helps multiplication.}
+Shifting a list changes the phase of each frequency in a simple way.
+Convolution is built from weighted shifts, so in the frequency description
+it becomes multiplication of matching components, with the chosen normalization
+accounted for. The hard work is changing descriptions efficiently and reversing
+the change accurately. The full paper adds carefully chosen layouts and a
+polynomial representation to address those costs.
+
+\paragraph{What a tensor product means here.}
+First apply a two-entry operation to every horizontal pair in a $2\times2$
+array, then to every vertical pair. Applying the same operation separately on
+both coordinate directions is its tensor-product action. The terminology
+becomes compact when there are many axes, but its meaning is still ``do this
+operation in each selected direction while holding the others fixed.''
+
+\takeaway{A transform changes the coordinates used to describe data.
+Structured patterns can make an operation cheap in those coordinates.}

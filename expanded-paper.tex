@@ -20,12 +20,12 @@
 \hypersetup{pdftitle={Integer multiplication below n log n: illustrated reading edition},pdfauthor={Explanatory edition prepared with Codex; original paper by OpenAI}}
 \title{Integer multiplication below $n\log n$\\[8pt]\large An illustrated reading edition}
 \author{Original manuscript: OpenAI\\[5pt]\small Added explanations and figures prepared with OpenAI Codex}
-\date{October 12, 2026\\\small Original manuscript dated September 23, 2026}
+\date{Second illustrated edition, October 12, 2026\\\small Original manuscript dated September 23, 2026}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-A guided explanation of the original argument, with ten new figures,
+A guided explanation of the original argument, with 24 explanatory figures,
 worked arithmetic examples, a map of the recursive construction, and explicit
 distinctions between source theorem claims, illustrative calculations, and
 conditional proof interfaces. The exposition begins with digit convolution
@@ -39,7 +39,9 @@ are reproduced from the frozen source, with their original attribution.
 Their reproduction is not an independent endorsement of the asserted theorem.
 \tableofcontents
 \clearpage
+\input{foundations/00-start.tex}
 \input{explanations/00-orientation.tex}
+\input{foundations/01-convolution.tex}
 \input{explanations/01-digits.tex}
 \clearpage\section*{Original abstract (reproduced source claim)}
 \addcontentsline{toc}{section}{Original abstract}
@@ -56,15 +58,20 @@ of Sch\"onhage and Strassen in this model.
 \end{quote}
 \par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
 \input{original/sections/00-introduction.tex}
+\input{foundations/03-moving.tex}
 \input{explanations/02-tapes.tex}
 \par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
 \input{original/sections/02-streams.tex}
+\input{foundations/04-vectors.tex}
 \input{explanations/03-networks.tex}
+\input{foundations/05-cancellation.tex}
 \par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
 \input{original/sections/03-motifs.tex}
+\input{foundations/06-recursion.tex}
 \input{explanations/04-recursion.tex}
 \par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
 \input{original/sections/04-swap.tex}
+\input{foundations/02-patterns.tex}
 \input{explanations/05-butterflies.tex}
 \par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
 \input{original/sections/05-layers.tex}
@@ -74,9 +81,12 @@ of Sch\"onhage and Strassen in this model.
 \input{explanations/07-resampling.tex}
 \par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
 \input{original/sections/07-resampling.tex}
+\input{foundations/07-errors.tex}
+\input{foundations/08-bottleneck.tex}
 \input{explanations/08-assembly.tex}
 \par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
 \input{original/sections/08-assembly.tex}
+\input{foundations/09-evidence.tex}
 \input{explanations/09-consequences.tex}
 \par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
 \input{original/sections/09-exact-arithmetic.tex}

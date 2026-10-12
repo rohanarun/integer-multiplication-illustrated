@@ -1,0 +1,33 @@
+\guidechapter{Small error must stay small after rescaling}{A numerical budget you can audit by hand.}
+
+Imagine an approximate computation whose current absolute error is at most
+$0.01$. Passing it through an exact contraction does not enlarge that error.
+If the next approximation adds at most $0.02$, the new error bound is at
+most $0.03$. This is a worst-case sum: we do not assume errors cancel or
+behave randomly.
+
+Now restore a scale factor of eight. The error bound becomes
+$8\cdot0.03=0.24$, which is safely below one half. If the scale factor
+were 32 instead, the bound would become $0.96$. That weaker guarantee does
+not justify rounding to the right integer.
+
+\explfigure{20-error-budget}{A small internal error is not the final error.}{
+The last two bars are alternative rescalings of the same $0.03$ bound,
+not successive operations. Crossing $1/2$ means this bound is insufficient
+to guarantee exact rounding; it does not prove the actual answer is wrong.}
+
+The source proof has larger and more elaborate normalizations, but the
+principle is the same. It budgets local errors, bounds intermediate sizes,
+and tracks the multiplication of error when scales are undone. It also
+needs enough bits for intermediate exact dyadic values, even when the
+completed transform is contractive.
+
+\paragraph{Why strict inequality matters.}
+If the true integer is 12, a result strictly between $11.5$ and $12.5$
+rounds uniquely to 12. At exactly $12.5$, the distance to 12 and 13 is the
+same, so an error allowance of ``at most one half'' cannot determine which
+integer was intended. The paper proves a strict final bound for every
+coefficient and then performs exact carry propagation.
+
+\takeaway{Approximation is compatible with an exact answer when the
+fully rescaled error is proved smaller than half the gap between integers.}

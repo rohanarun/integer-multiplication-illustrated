@@ -1,0 +1,29 @@
+{
+  "count": 24,
+  "figures": [
+    "01-convolution",
+    "02-role-volume",
+    "03-restoration",
+    "04-common-frame",
+    "05-recursion",
+    "06-butterfly",
+    "07-signed-shift",
+    "08-permutations",
+    "09-rounding",
+    "10-margins",
+    "11-proof-roadmap",
+    "12-growth-rates",
+    "13-convolution-groups",
+    "14-evaluate-recover",
+    "15-frequency-patterns",
+    "16-tape-order",
+    "17-rank-directions",
+    "18-frame-example",
+    "19-recursion-ledger",
+    "20-error-budget",
+    "21-intersection-cancellation",
+    "22-bottleneck",
+    "23-proof-obligations",
+    "24-complex-turns"
+  ]
+}

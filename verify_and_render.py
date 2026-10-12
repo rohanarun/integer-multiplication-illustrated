@@ -3,7 +3,10 @@ from pathlib import Path
 import fitz,json,re,hashlib
 from PIL import Image,ImageDraw
 ROOT=Path(__file__).resolve().parent
+(ROOT/'preview').mkdir(exist_ok=True)
 report={'documents':{},'scope':'Document integrity and pedagogical examples; not a theorem validation.'}
+figure_manifest=json.loads((ROOT/'figure-manifest.json').read_text())
+figure_count=figure_manifest['count']
 for name,short in [('illustrated-guide','guide'),('expanded-paper','expanded')]:
  doc=fitz.open(ROOT/'output/pdf'/f'{name}.pdf');thumbs=[];problems=[];texts=[]
  for i,p in enumerate(doc):
@@ -25,10 +28,10 @@ for name,short in [('illustrated-guide','guide'),('expanded-paper','expanded')]:
  fulltext='\n'.join(texts)
  assert not problems,problems
  assert '??' not in fulltext,'Unresolved-reference marker'
- for i in range(1,11):assert f'Figure E{i}.' in fulltext,(name,i)
+ for i in range(1,figure_count+1):assert f'Figure E{i}.' in fulltext,(name,i)
  log=(ROOT/'output/pdf'/f'{name}.log').read_text()
  assert 'Overfull' not in log and 'undefined' not in log.lower(),name
- report['documents'][name]={'pages':len(doc),'added_figures':10,'out_of_page_text':problems,
+ report['documents'][name]={'pages':len(doc),'added_figures':figure_count,'out_of_page_text':problems,
    'sha256':hashlib.sha256((ROOT/'output/pdf'/f'{name}.pdf').read_bytes()).hexdigest(),
    'all_pages_rendered':True,'unresolved_references':False,'overfull_boxes':False}
 manifest=json.loads((ROOT/'source-manifest.json').read_text());count=0
@@ -38,5 +41,7 @@ for name,meta in manifest['files'].items():
   count+=1
 report['original_build_files_hash_verified']=count
 report['example_checks']=json.loads((ROOT/'example-checks.json').read_text())
+report['foundation_checks']=json.loads((ROOT/'foundation-checks.json').read_text())
+report['figure_manifest']=figure_manifest
 (ROOT/'verification.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({n:{'pages':v['pages'],'figures':v['added_figures']} for n,v in report['documents'].items()},indent=2))

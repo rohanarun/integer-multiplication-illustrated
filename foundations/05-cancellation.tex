@@ -1,0 +1,37 @@
+\guidechapter{How unwanted sources cancel out}{Read the coefficients, not just the circuit's arrows.}
+
+The source circuit temporarily combines many values. The challenge is to
+leave precisely the source meant for each target. The original construction
+labels a source and a target with sets of three elements. Their overlap can
+have size zero, one, two, or three. Two sets of size three overlap in three
+elements only when they are the same set.
+
+For example, $\{1,2,3\}$ and $\{3,4,5\}$ overlap once, while
+$\{1,2,3\}$ and $\{2,3,4\}$ overlap twice. The central part of
+the complex construction gives coefficient $(q-1)/2$ when the overlap is $q$.
+That is $-1/2,0,1/2,1$ across the four possibilities. Side contributions
+cancel the two unwanted nonzero cases. The chart shows both contributions
+and their sum.
+
+\explfigure{21-intersection-cancellation}{Only the self-contribution survives.}{
+The complex coefficients are ordinary signed numbers. The bit construction
+instead uses modulo-two arithmetic, where $1+1=0$; its side contribution
+cancels the overlap-one case. Both leave net coefficients $0,0,0,1$.}
+
+For a target labeled $S$, every distinct source $T$ therefore has zero
+net coefficient, and source $S$ has coefficient one. The target receives
+exactly its intended value even though many other values were used internally.
+This is stronger than testing one convenient input. It describes every
+source's contribution to the output.
+
+\paragraph{Where workspace restoration enters.}
+The cancellation table concerns the newly introduced source values. It does
+not by itself remove arbitrary values that were already in scratch registers.
+The separate restoration schedule cancels those initial values and returns
+them. The source proof needs both properties: correct new contribution and
+unchanged borrowed data. The register-trajectory figure makes the latter
+property visible for one small example.
+
+\takeaway{A crowded network can implement a simple map because unwanted
+coefficients cancel. The proof must account for every contribution, including
+the values initially occupying its workspace.}

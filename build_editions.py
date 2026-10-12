@@ -10,9 +10,17 @@ preamble+=r'''
 \hypersetup{pdftitle={Integer multiplication below n log n: illustrated reading edition},pdfauthor={Explanatory edition prepared with Codex; original paper by OpenAI}}
 \title{Integer multiplication below $n\log n$\\[8pt]\large An illustrated reading edition}
 \author{Original manuscript: OpenAI\\[5pt]\small Added explanations and figures prepared with OpenAI Codex}
-\date{October 12, 2026\\\small Original manuscript dated September 23, 2026}
+\date{Second illustrated edition, October 12, 2026\\\small Original manuscript dated September 23, 2026}
 '''
 chapters=sorted((ROOT/'explanations').glob('*.tex'))
+foundation_before={0:['00-start'],1:['01-convolution'],2:['03-moving'],3:['04-vectors'],4:['06-recursion'],5:['02-patterns'],8:['07-errors','08-bottleneck'],9:['09-evidence']}
+foundation_after={3:['05-cancellation']}
+def foundation(stem):return r'\input{foundations/'+stem+'.tex}\n'
+def exp(n):
+ return ''.join(foundation(s) for s in foundation_before.get(n,[]))+r'\input{explanations/'+chapters[n].name+'}\n'+''.join(foundation(s) for s in foundation_after.get(n,[]))
+figure_names=re.findall(r'\\explfigure\{([^}]+)\}','\n'.join(p.read_text() for folder in ['explanations','foundations'] for p in (ROOT/folder).glob('*.tex')))
+assert len(figure_names)==len(set(figure_names)),'An explanatory figure was inserted twice'
+figure_count=len(figure_names)
 start=preamble+r'''
 \begin{document}
 \maketitle
@@ -25,8 +33,9 @@ and builds toward frame geometry, tape recurrences, transforms, and exact
 recovery. It is not a new proof or an official revision of the source paper.
 \end{abstract}
 '''
+start=start.replace('ten new figures',f'{figure_count} explanatory figures')
 guide=start+r'\tableofcontents\clearpage'+'\n'
-for p in chapters:guide+=r'\input{explanations/'+p.name+'}\n'
+for n in range(len(chapters)):guide+=exp(n)
 guide+=r'\end{document}'+'\n'
 (ROOT/'illustrated-guide.tex').write_text(guide)
 
@@ -38,7 +47,6 @@ Their reproduction is not an independent endorsement of the asserted theorem.
 \tableofcontents
 \clearpage
 '''
-def exp(n):return r'\input{explanations/'+chapters[n].name+'}\n'
 def orig(name):return '\\par\\bigskip\\Needspace{8\\baselineskip}\\hrule\\medskip\\noindent{\\small\\textcolor{readerblue}{Original manuscript continues below.}}\\par\\medskip\n'+r'\input{original/sections/'+name+'}\n'
 full+=exp(0)+exp(1)
 abstract=source.split(r'\begin{abstract}')[1].split(r'\end{abstract}')[0]
@@ -62,4 +70,5 @@ manifest=json.loads((ROOT/'source-manifest.json').read_text())
 for name,meta in manifest['files'].items():
  if name.startswith('build/'):
   assert hashlib.sha256((ROOT/'original'/name[6:]).read_bytes()).hexdigest()==meta['sha256'],name
-print('Assembled guide and expanded paper; all copied original LaTeX sources unchanged.')
+(ROOT/'figure-manifest.json').write_text(json.dumps({'count':figure_count,'figures':sorted(figure_names)},indent=2)+'\n')
+print(f'Assembled guide and expanded paper with {figure_count} figures; original LaTeX sources unchanged.')

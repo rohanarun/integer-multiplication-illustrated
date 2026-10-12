@@ -4,7 +4,7 @@ Source repository: https://github.com/openai/math
 Commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
 The accompanying LICENSE is the original Apache License, Version 2.0.
 
-This derivative reading edition adds explanations, ten figures, worked
+This derivative reading edition adds explanations, 24 figures, worked
 examples, editorial wrappers, and reproducible example checks. These additions
 were prepared with substantial OpenAI Codex assistance on October 12, 2026.
 The original manuscript files under original/ have not been modified.

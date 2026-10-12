@@ -1,0 +1,52 @@
+\guidechapter{See exactly which digit products get added}{Convolution without new machinery.}
+
+Every term in long multiplication has a destination place. In $23\times14$,
+the $3\times4$ product contributes to the ones place. Both $3\times1$
+and $2\times4$ contribute to the tens place, because one factor in each
+product is a tens digit. Finally $2\times1$ contributes to the hundreds
+place. The diagonal colors in the grid identify those destinations.
+
+\explfigure{13-convolution-groups}{Convolution is addition along equal-place diagonals.}{
+The two teal cells contribute $3$ and $8$ to the same coefficient, giving
+$11$. The coefficient list is $[12,11,2]$, before carrying. A cell is a
+specific digit product, not a generic stage of an algorithm.}
+
+Number digit positions starting at zero. A digit in position $i$ multiplies
+a digit in position $j$ into position $i+j$, because $10^i10^j=10^{i+j}$.
+That is the whole reason for the rule ``add products with the same position
+sum.'' The word \emph{convolution} names this rule. It is the same rule in
+binary or any other radix.
+
+\paragraph{Why change to a polynomial?}
+Replace the radix ten by a variable $x$. The two inputs become
+$A(x)=3+2x$ and $B(x)=4+x$. Their product is a quadratic: it can be
+written $C(x)=c_0+c_1x+c_2x^2$ for three unknown coefficients.
+At $x=10$ it must give the integer product. But ten is not the only useful
+place to evaluate it. Easier sample points can reveal its coefficients.
+
+\explfigure{14-evaluate-recover}{Compute values first, then recover coefficients.}{
+At $x=-1,0,1$, the input values multiply to $3,12,25$. Exactly one polynomial
+of degree at most two passes through those three distinct sample points.
+The curves are these specific polynomials, not a metaphor for a transform.}
+
+At zero, $C(0)=c_0=3\times4=12$. At one, $C(1)=5\times5=25$.
+At minus one, $C(-1)=1\times3=3$. Thus
+\[
+ c_0=12,\qquad
+ c_1=\frac{25-3}{2}=11,\qquad
+ c_2=\frac{25+3}{2}-12=2.
+\]
+Subtracting the last two sampled equations isolates the odd-power term;
+adding them isolates the even-power terms. Evaluating at ten now gives
+$12+11\cdot10+2\cdot100=322$.
+
+\paragraph{Where this example stops.}
+This tiny interpolation example is not the paper's fast algorithm. It shows
+why ``evaluate, multiply matching values, reconstruct'' can work at all.
+For huge inputs, evaluation and reconstruction must themselves be fast and
+well controlled. Fourier transforms choose highly structured sample points
+so that those steps can share work. The next foundation chapter explains
+what their patterns look like.
+
+\takeaway{Convolution groups equal-place products. A transform provides
+another way to compute the same coefficients; it does not change the product.}
