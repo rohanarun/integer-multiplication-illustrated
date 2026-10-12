@@ -1,0 +1,53 @@
+\guidechapter{Changing the grid without sorting everything}{Read before Gaussian resampling.}
+
+The natural convolution layout and the efficient synthetic-transform layout
+do not have the same axis lengths. The multiplication reduction uses pairwise
+coprime source axes; synthetic transforms prefer powers of two. Gaussian
+resampling connects them through carefully controlled linear maps. This is
+an analytic bridge, not ordinary rounding of an index to its nearest neighbor.
+
+In one dimension the source gives an identity of the form
+\[
+ P_sF_s=2^{2\alpha^2}B_0P_tF_tA.
+\]
+Here $A$ maps from the source grid of length $s$ to a longer grid of length
+$t$; $B_0$ maps back. The $P$ operators are coordinate permutations.
+The maps are implemented approximately at a stated precision, with explicit
+error and time bounds. The large known scalar is accounted for in recovery.
+The inequalities relating $s,t,\alpha,p$ are assumptions of this interface,
+not decoration that can be dropped when changing parameters.
+
+\paragraph{Why leaving a permutation in a formula can save time.}
+Let $P$ reorder coordinates. If two arrays use the same reordering, then
+\[
+ (PA)\odot(PB)=P(A\odot B).
+\]
+Corresponding frequencies are still paired correctly. A consumer that knows
+the order can use them directly. The simple identity below explains the
+opportunity; the source proves the more specific identities needed to make
+all its source and target permutations compatible with the opposite transform.
+
+\explfigure{08-permutations}{Consistency can remove a needless reorder.}{
+The arrows show the same permutation on both factors and their pointwise
+product. The diagram alone does not prove that an arbitrary inverse-transform
+implementation accepts that order. Its interface must establish this.}
+
+\paragraph{Where the chirp identity fits.}
+Bluestein's identity rewrites the bilinear exponent using
+$2jk=j^2+k^2-(j-k)^2$. Quadratic phase factors on the inputs and outputs
+turn a transform into a convolution with a known chirp. The original proof
+keeps the relevant permutation inside that calculation. A further phase
+twist reconciles cyclic convolution with the negacyclic polynomial relation
+$y^r=-1$. Each twist and its removal has both an algebraic and a precision cost.
+
+\paragraph{The error budget has two different kinds of growth.}
+For a composition of exact contractions, existing error is not amplified,
+so local approximation errors can be added. However, undoing a known large
+normalization multiplies absolute error. It is therefore wrong to conclude
+``all transforms are contractive, so the final answer is accurate'' without
+tracking the rescaling. The source chooses sufficient working precision to
+survive both accumulated local error and the final amplification.
+
+\takeaway{A layout is part of an algorithm's input and output contract.
+Preserving a useful order is valuable only when every later step accepts it.}
+\sourceanchor{07-resampling.tex, lem:no-sort-resampling; 08-assembly.tex}

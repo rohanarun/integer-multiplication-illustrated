@@ -1,0 +1,54 @@
+\guidechapter{Making roots of unity into signed shifts}{Read before synthetic transforms and ring products.}
+
+A transform normally multiplies values by roots of unity. In the synthetic
+representation, a value is itself a short polynomial, stored as its coefficient
+list. Work in
+\[
+ \mathcal R_r=\mathbb C[y]/(y^r+1).
+\]
+This means that $y^r$ is replaced by $-1$. Multiplication by $y$ shifts the
+coefficient list and negates the coefficient that wraps around.
+
+\explfigure{07-signed-shift}{A root operation becomes exact data movement.}{
+For $r=4$, $y(a_0+a_1y+a_2y^2+a_3y^3)$ reduces to
+$-a_3+a_0y+a_1y^2+a_2y^3$. No approximate trigonometric multiplication is
+needed for this operation.}
+
+For a power of two $t$ dividing $2r$, the element $\omega_t=y^{2r/t}$
+serves as a transform root. Its powers act as signed coefficient permutations.
+The source proves the needed character cancellation directly. This matters
+because the quotient ring has zero divisors: dividing by a nonzero-looking
+ring element is not automatically legal.
+
+\paragraph{Keep the order the algorithm naturally produces.}
+A recursive Fourier transform often produces frequencies in bit-reversed
+order. For length four, that order is $0,2,1,3$. If both transformed inputs
+use the same order, corresponding entries can still be multiplied. Sorting
+each transform into a prettier order would add work without changing the
+mathematical product. The opposite transform is written to consume the order
+that is actually present.
+
+\paragraph{Normalization is part of the interface.}
+Both transforms in this manuscript contain a factor $1/t$. Consequently,
+$F_t^+F_t^-=I/t$, rather than $I$. With this convention, for a length-$t$
+cyclic convolution,
+\[
+ F_t^+\bigl((F_t^-u)\odot(F_t^-v)\bigr)=\frac{u*v}{t^2}.
+\]
+One factor of $t$ comes from the forward product normalization, and the
+other from the normalized opposite transform. Losing either scale would
+destroy exact recovery. Multidimensional versions replace $t$ by the product
+of axis lengths, subject to the source's retained permutations.
+
+\paragraph{Why polynomial multiplication does not make the proof circular.}
+Pointwise entries are now polynomials, so their products still need computation.
+The source packs bounded signed coefficients into larger integers with enough
+separation to recover each coefficient. It handles centered extraction, signs,
+and negacyclic wrapping explicitly. For these shorter integers it invokes the
+already established $O(N\log N)$ multiplier, not the improved algorithm it is
+trying to establish. The input length $N$ of those calls differs from the
+original $n$, and all calls are charged in the final cost table.
+
+\takeaway{A representation change can replace expensive scalar root
+multiplications by exact signed shifts, but layout and scaling still cost work.}
+\sourceanchor{06-transforms.tex, lem:synthetic-characters; lem:signed-ring-product}

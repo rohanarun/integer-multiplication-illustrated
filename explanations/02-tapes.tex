@@ -1,0 +1,47 @@
+\guidechapter{Why moving data is part of the mathematics}{Read before the machine-model section.}
+
+Imagine a long row of labeled boxes, with a head that can move one box per
+step. The label is a conceptual address; the machine does not get free random
+access just because we can write $A[i,j]$ on paper. A multidimensional array
+is flattened into one ordered stream. In lexicographic order, the last
+coordinate changes fastest. For a $2\times3$ array the order is
+\[
+ (0,0),(0,1),(0,2),(1,0),(1,1),(1,2).
+\]
+Changing to the opposite coordinate order rearranges the records. On this
+machine, the cost includes getting them into those positions.
+
+\paragraph{A role is a place in a circuit; a row is a block of data.}
+The finite network has $W$ roles, counting both data roles and scratch roles.
+At a recursion node, complete rows are distributed cyclically among them.
+A row contains the entire suffix of active address fields. That completeness
+ensures that each role sees the same local address set. After suitable padding,
+each role receives exactly a $1/W$ fraction of the logical volume.
+
+\explfigure{02-role-volume}{The volume division that drives the recurrence.}{
+Each illustrative row has $B$ bits. Twelve rows give $V=12B$; three role
+streams each hold $4B$. The actual paper uses much larger fixed networks.}
+
+\paragraph{Why auxiliary roles are included.}
+Suppose we counted only useful output rows and forgot workspace. A construction
+could appear cheap merely by hiding a large amount of temporary data. The
+network's $W$ counts all roles. Scratch roles can hold arbitrary existing data
+because the scalar circuit restores them. They are not presumed free zeroed
+memory. The later framed array operation must also be correct on these roles.
+
+\paragraph{Logical volume is not permission to ignore copying.}
+$V$ names the data volume used to normalize a recursive call. Physical copies,
+padding, counter updates, tape-head returns, and cleanup still consume time.
+They are charged as overhead. When a child is active, the paper's schedule
+parks its parent's streams and restores them on return. The claimed accounting
+requires that it does not repeatedly sweep through every parked ancestor.
+
+\paragraph{A fixed machine can still process growing descriptors.}
+Input lengths, axis lengths, and call states are stored as data. The number
+of tapes and the alphabet cannot grow with $n$. This is why a proof about a
+finite circuit is only one ingredient: it must be transferred to uniform
+stream operations with explicit costs for manipulating those descriptors.
+
+\takeaway{Watch both the number of recursive calls and the amount of data
+each call processes. A saving in one can disappear if the other is miscounted.}
+\sourceanchor{02-streams.tex, lem:elementary-streams}

@@ -1,0 +1,76 @@
+\guidechapter{The question, the claim, and how to read it}{Start here; no Fourier analysis is assumed.}
+
+Multiplication looks finished when we learn it at school. But the number of
+elementary steps needed to multiply two extremely long binary strings is a
+different question. The input length is the number of bits, not the numerical
+value of the input. A number with a million bits is one input of length a million;
+the fact that its value may be near $2^{1,000,000}$ does not change that length.
+
+The manuscript studied here is OpenAI's \emph{Integer multiplication below
+$n\log n$}, dated September 23, 2026, at source commit
+\texttt{adc7f1241b42e322a6451854ab7e4b4c146bf78a}. It states a worst-case bound
+\[
+ T(n)=O\bigl(n(\lg n)^{1-\kappa}\bigr),\qquad \kappa=2^{-182}.
+\]
+Here $\lg n=\max\{\lceil\log_2 n\rceil,1\}$. The machine must output the
+exact product for every input, including inputs with leading zeroes. The
+machine model uses a fixed finite alphabet and a fixed finite number of
+one-dimensional tapes. Reading, writing, and moving data all cost time.
+
+\paragraph{What this edition does and does not establish.}
+The original text states its result as a theorem. This edition explains that
+argument; it does not independently establish its validity. The community
+repository treats its improvements as conditional on the original framework
+and retained implementation and analytic interfaces. That distinction matters:
+checking an exact finite network or a list of rational inequalities does not
+by itself prove that a single tape machine implements the complete algorithm
+within the asserted bound for all input sizes. Original theorem statements are
+retained as source text in the full edition, not recast as new findings by this
+guide. This is an independently prepared explanatory edition, not an official
+OpenAI revision or endorsement.
+
+\paragraph{Why a tiny positive exponent matters.}
+Ignoring constants only for this comparison, divide the proposed bound by
+$n\log_2 n$. The quotient is $(\log_2 n)^{-\kappa}$, which tends to zero
+for every fixed $\kappa>0$. This is an asymptotic distinction, however tiny
+$\kappa$ is. It is not a prediction of a useful speedup on a computer.
+Even reducing this idealized ratio to $1/2$ requires
+\[
+ (\log_2 n)^\kappa=2,
+ \qquad \log_2 n=2^{1/\kappa},
+ \qquad n=2^{\,2^{1/\kappa}}.
+\]
+With $\kappa=2^{-182}$ this is an extraordinary scale. Unknown constants,
+thresholds, and the actual implementation make a practical comparison still
+more demanding. A larger $\kappa$ means a better exponent saving, not an equal
+percentage improvement in measured runtime.
+
+\paragraph{The argument in one paragraph.}
+Turn digit multiplication into convolution. Use transforms to turn convolution
+into smaller pointwise products. Make two expensive ingredients cheaper:
+rearranging the addresses of stored data, and applying many two-point transform
+steps. Both improvements come from finite linear networks whose intermediate
+representations are chosen carefully. Prove a recursive saving after charging
+every auxiliary role and every representation change. Then show that layouts,
+resampling, precision, and exact recovery fit under the same final bound.
+
+\paragraph{A route through the expanded paper.}
+First read the digit example and the tape explanation. Next read restoration,
+common frames, and the recurrence: these explain where the proposed saving
+comes from. The butterfly and polynomial examples explain what consumes the
+saving. The final chapters explain why reordering and rounding cannot be
+afterthoughts. In the full edition, each added explanation precedes the original
+technical material it illuminates. Added figures use the prefix E; original
+section, equation, theorem, and figure numbering are preserved.
+
+\takeaway{The central question is whether the entire computation, including
+data movement and exact recovery, can save a positive power of $\log n$.}
+
+\paragraph{Source and attribution.}
+The original paper and its bibliography are preserved under the Apache-2.0
+license in the accompanying source package. Its historical discussion credits
+Sch\"onhage--Strassen, Harvey--van der Hoeven, Nussbaumer and Quandalle, and
+other prior work. The subsequent CrocSwap repository preserves community
+contributions separately. New explanatory prose, figures, and example checks
+in this edition were prepared with OpenAI Codex assistance on October 12, 2026.
+The source snapshot is frozen; this document is not a live record leaderboard.

@@ -1,0 +1,90 @@
+\guidechapter{Borrowed workspace and changing representations}{Read before the finite-network proof.}
+
+Two ideas that initially seem unrelated work together here. First, a linear
+calculation can borrow a register without knowing its contents, provided it
+removes the influence of those contents and restores them. Second, arrays can
+be represented in different coordinates at different places in a circuit.
+The cost of changing representation can be smaller than directly performing
+the desired overall array operation.
+
+\paragraph{A four-update restoration example.}
+Let $a$ be an arbitrary scratch value. Starting from $(x,y,a)$, perform
+\[
+ y\leftarrow y-a,\quad a\leftarrow a+x,\quad
+ y\leftarrow y+a,\quad a\leftarrow a-x.
+\]
+The final state is $(x,y+x,a)$. The initial $a$ cancels from the target, and
+the scratch register returns exactly to its initial value. This is a toy
+identity over an additive ring, not a proposed implementation of the full
+network. In characteristic two, addition and subtraction both become XOR.
+
+\explfigure{03-restoration}{Unknown does not mean unusable.}{
+Every intermediate occurrence of $a$ is shown. This small example illustrates
+why starting scratch at zero would be an insufficient test.}
+
+\paragraph{How the actual network isolates the right source.}
+The original construction indexes values by triples $S,T\subseteq[h]$.
+Gathering through coordinates shared by the triples gives a coefficient
+depending on $|S\cap T|$. A side circuit cancels unwanted cross-terms. In
+the bit version the central coefficient is $|S\cap T|$ modulo two:
+intersection sizes zero and two already vanish, intersection one is canceled,
+and the self-intersection three leaves one. Thus the net target update is
+$y_S\leftarrow y_S+x_S$. For the complex version, the central coefficient
+is $(|S\cap T|-1)/2$; side terms cancel the distinct intersection-zero and
+intersection-two cases. In both cases the scratch-restoration schedule removes
+the old auxiliary values.
+
+Three bank updates yield
+\[
+ (x,y)\to(x,y+x)\to(-y,y+x)\to(-y,x).
+\]
+This is a signed swap; over bits the minus sign disappears. The network alone
+has not yet accomplished a fast transform. It supplies an algebraic scaffold.
+
+\paragraph{What a frame means.}
+Let $g$ be the logical array on one role. A frame is an invertible linear
+operator $D$ on its address-indexed entries. The stored array is $Dg$.
+A pointwise gate, in contrast, combines different roles at the same address.
+For a gate adding two roles, a common frame gives
+\[
+ Dg_1+Dg_2=D(g_1+g_2).
+\]
+This is ordinary linearity, but it requires the \emph{same} $D$ on every
+incidence of that gate. With unrelated frames $D_1,D_2$, the desired identity
+does not follow.
+
+\explfigure{04-common-frame}{The diagram commutes because the frame is shared.}{
+Horizontal arrows combine roles. Vertical arrows change the representation
+within an array. These are different operations on different indices.}
+
+Between vertices with frames $D_u,D_v$, the change is $D_vD_u^{-1}$.
+Following the invariant through the circuit gives the implemented operator
+\[
+ D_{\rm out}\,\mathsf S_\Omega\,D_{\rm in}^{-1},
+\]
+where $\mathsf S_\Omega$ is the scalar circuit applied pointwise. If the scalar
+circuit is a signed role permutation, each route sees only its endpoint frames
+and its scalar sign. Intermediate frames cancel algebraically, but their
+physical changes must still be paid for. Choosing them cheaply is the design
+problem.
+
+\paragraph{Why the geometry matters.}
+The paper attaches subspaces to vertices. Comparable neighboring subspaces
+give residual directions whose dimensions count smaller operations. Low rank
+means fewer independent directions to implement. A matrix with many nonzero
+entries may still have rank one; for example,
+$\left(\begin{smallmatrix}1&1\\1&1\end{smallmatrix}\right)$ moves only
+one independent combination. Conversely, a sparse identity matrix has full
+rank. The accounting therefore depends on the actual residual operators,
+their bases, and endpoint contributions, not just the number of visible gates.
+
+The bit circuit combines scalars in $\mathbb F_2$ while using rational
+subspace labels for address operators. The complex circuit combines Gaussian
+dyadic scalars while using binary subspace labels for phase operators. These
+are two different uses of a field; confusing scalar values with address labels
+obscures the construction.
+
+\takeaway{Restoration makes existing rows usable as workspace. Common frames
+turn a scalar swap into an array operation. Residual ranks price the changes
+between those frames. All three properties are needed.}
+\sourceanchor{03-motifs.tex, lem:scalar-motifs; eq:common-frame-identity}

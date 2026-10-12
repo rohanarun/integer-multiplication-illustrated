@@ -1,0 +1,54 @@
+\guidechapter{The smallest transform step, applied on many axes}{Read before simultaneous butterfly layers.}
+
+A two-point normalized Fourier transform sends
+\[
+ H_0(u,v)=\left(\frac{u+v}{2},\frac{u-v}{2}\right).
+\]
+The first output records an average; the second records a difference.
+For $(u,v)=(6,2)$ the outputs are $(4,2)$. Recover the original by
+$u=4+2$, $v=4-2$. The factor $1/2$ matters: this is not the unnormalized
+Hadamard matrix, nor the unitary matrix with factor $1/\sqrt2$.
+
+\explfigure{06-butterfly}{A butterfly and a two-axis layer.}{
+The lower example uses the tensor product $H_0\otimes H_0$ on four entries.
+One axis gives $[6,2,2,0]$, and the other gives $[4,1,2,1]$.
+The entries are examples, not intermediate values from the large network.}
+
+If every input has complex magnitude at most $M$, each output also does:
+$|u\pm v|/2\le(|u|+|v|)/2\le M$. Thus the completed operation is
+contractive in the maximum norm. Applying it on several address bits means
+pairing records that differ in a selected bit, for every setting of the other
+bits. A naive implementation makes one whole-array pass per selected axis.
+The proposed layer algorithm organizes those operations jointly.
+
+\paragraph{Why the paper temporarily uses a different kernel.}
+Define $X$ to exchange two entries, $\mathsf S=\operatorname{diag}(1,i)$,
+$a=(1+i)/2$, $b=(1-i)/2$, and $C=aI+bX$. The useful identities are
+\[
+ C^2=X,\quad C^4=I,\qquad H_0=b\mathsf S C\mathsf S.
+\]
+The kernel $C$ interacts well with the binary phase frames used to price
+residual directions. Once its tensor layer is complete, diagonal phases and
+a known dyadic complex factor produce the desired $H_0$ layer. These are
+classical linear identities; the use of phase matrices does not require a
+quantum computer.
+
+\paragraph{One final rounding, not one rounding per internal gate.}
+The internal values are exact Gaussian dyadics, numbers whose real and
+imaginary parts are integers divided by powers of two. Internal scratch can
+grow even though the completed $H_0$ layer is contractive. The proof therefore
+needs guard bits for internal magnitudes and denominators. It executes the
+whole layer exactly and truncates only at its boundary. Contraction alone
+would not justify discarding bits after every scratch update.
+
+\paragraph{Why selected bits create exceptional addresses.}
+An efficient packed address update may agree with a desired binary basis
+change on most addresses while carries disturb a small, explicitly described
+set. The paper isolates that set and repairs it deterministically. The proof
+needs agreement outside it, invariance of the exceptional set, and a bound on
+the cost of extracting, sorting, and reinserting full records. ``Rare'' does
+not mean random or ignorable: every input must still be correct.
+
+\takeaway{The second saving batches arithmetic across axes. It must survive
+basis changes, intermediate growth, and exact correction of exceptional records.}
+\sourceanchor{05-layers.tex, eq:phase-C; eq:phase-basic-identities}

@@ -1,0 +1,12 @@
+\usepackage{graphicx,xcolor,fancyhdr,needspace}
+\definecolor{readerblue}{HTML}{245CA6}
+\definecolor{readerteal}{HTML}{147C80}
+\newcounter{guidefigure}
+\newcommand{\guidechapter}[2]{\par\bigskip\Needspace{8\baselineskip}\section*{#1}\addcontentsline{toc}{section}{Reader guide: #1}\noindent{\small\color{readerteal}\textbf{Added explanation}\quad #2}\par\medskip}
+\newcommand{\explfigure}[3]{\begin{center}\begin{minipage}{\linewidth}\centering\includegraphics[width=\linewidth]{figures/#1.pdf}\par\smallskip\refstepcounter{guidefigure}\begin{minipage}{.96\linewidth}\small\textbf{Figure E\theguidefigure. #2}\enspace #3\end{minipage}\end{minipage}\end{center}}
+\newcommand{\takeaway}[1]{\par\medskip\noindent\textcolor{readerteal}{\textbf{What to carry forward.}} #1\par\medskip}
+\newcommand{\sourceanchor}[1]{\par\smallskip{\footnotesize\raggedright\textit{Original source anchors:} \texttt{#1}.\par}}
+\setlength{\emergencystretch}{3em}\tolerance=3000
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small Integer multiplication: an illustrated reading edition}\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\makeatletter\def\input@path{{original/}}\makeatother

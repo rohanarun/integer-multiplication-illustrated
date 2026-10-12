@@ -1,0 +1,57 @@
+\guidechapter{Notation and source map}{Use this page while reading the technical sections.}
+
+\begin{longtable}{@{}p{.18\linewidth}p{.76\linewidth}@{}}
+\toprule Symbol or term & Meaning in this guide and the original argument \\
+\midrule\endhead
+$n$ & Bit length of each input integer. \\
+$b$ & Radix-digit bit width in the original assembly. \\
+$p$ & Working precision; originally $p=6\lceil\log_2 n\rceil$. \\
+$V$ & Logical stored bit volume at a recursive node. \\
+$W$ & Number of all roles in a fixed finite network, including scratch. \\
+$m$ & Fixed network dimension and recursive width multiplier. \\
+$s$ & Number of paid smaller calls in the recurrence discussion; in resampling, the same letter instead denotes a source length. \\
+$d$ & Number of transform axes, growing slowly with precision. \\
+$K$ & Packed address-chunk width; scales like $p^{\epsilon c}$. \\
+$r,\ell$ & Polynomial length and its binary logarithm. \\
+$T$ & Padded transform-box size; $Tp=\Theta(n)$. Do not confuse with the time function $T(n)$ or a triple named $T$. \\
+$\tau,\sigma$ & Rational upper exponents for the bit and complex recurrences. \\
+$\lambda'$ & Exponent in the completed simultaneous-layer cost after overhead. \\
+$\kappa$ & Final saving in the exponent of $\log n$. \\
+Role / row & Fixed circuit wire position / complete contiguous suffix block. \\
+Frame & Invertible representation operator on one role's address-indexed array. \\
+Rank deficit & Difference between a full linear call budget $Wm$ and the paid budget $s$. \\
+Gaussian dyadic & Complex number with power-of-two denominators in both components. \\
+Conditional & The conclusion depends on retained interfaces whose full independent validation is not supplied by a finite certificate. \\
+\bottomrule
+\end{longtable}
+
+\paragraph{Where to find each layer of the original source.}
+The filenames below are preserved in the accompanying package. Their theorem
+labels are more stable references than page numbers after expansion.
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}\toprule
+Question & Original source file \\
+\midrule
+What machine is counted? & \texttt{02-streams.tex} \\
+What does the finite network do? & \texttt{03-motifs.tex} \\
+How does rank price movement? & \texttt{04-swap.tex} \\
+How are many butterflies batched? & \texttt{05-layers.tex} \\
+How are transforms and ring products done? & \texttt{06-transforms.tex} \\
+How do grid sizes and permutations fit? & \texttt{07-resampling.tex} \\
+Where are exactness and all costs combined? & \texttt{08-assembly.tex} \\
+What are the further consequences? & \texttt{09-exact-arithmetic.tex}, \texttt{10-transposition.tex} \\
+\bottomrule\end{tabular}\end{center}
+
+\paragraph{Primary sources and scope references.}
+\begin{enumerate}
+\item OpenAI, \emph{Integer multiplication below $n\log n$}, September 23,
+2026. Frozen source in
+\href{https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Integer-multiplication-below-n-log-n-September-23-2026}{the OpenAI math repository}.
+\item \href{https://github.com/CrocSwap/integer-mult-bounds}{CrocSwap/integer-mult-bounds},
+community research and attribution. Local scope reference consulted:
+\texttt{docs/audit.md} at commit
+\texttt{87aa555a455cca84a3e3296ced2440623d39fc4d}.
+\item David Harvey and Joris van der Hoeven, \emph{Integer multiplication in
+time $O(n\log n)$}, Annals of Mathematics 193 (2021). The original paper's
+bibliography and analytic references are retained in the full edition.
+\end{enumerate}

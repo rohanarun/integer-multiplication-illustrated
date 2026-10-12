@@ -1,0 +1,82 @@
+\guidechapter{Putting exactness and the running time together}{Read before the final assembly proof.}
+
+The paper has two finish lines. It must return the exact product, and every
+part of the computation must fit the claimed time bound. These obligations
+are related through precision and storage volume, but neither replaces the other.
+
+\paragraph{Exactness from a strict error interval.}
+The desired convolution coefficients $c_j$ are integers. If the computation
+produces an approximation $\widetilde c_j$ with
+$|\widetilde c_j-c_j|<1/2$, nearest-integer rounding recovers $c_j$ uniquely.
+The bound must hold \emph{after} restoring all transform normalizations and
+digit scales. A tie at exactly $1/2$ is not enough. Once coefficients are
+recovered, carries and binary output are exact integer operations.
+
+\explfigure{09-rounding}{Approximate internal arithmetic, exact final output.}{
+The displayed $12.27$ is a teaching example. The source's proof supplies a
+uniform bound on every recovered coefficient; this picture does not measure
+its actual numerical error.}
+
+The source uses radix width $b=\lceil\log_2 n\rceil$ and working precision
+$p=6b$ in its original assembly. Roughly, there are $n/b$ digits and
+$\Theta(p)$ stored bits per coefficient, making the padded volume
+$V=Tp=\Theta(n)$. This relation is what turns costs per stored bit into a
+bound in terms of the original input size.
+
+\paragraph{Seven competing bills.}
+The final table separates operations that scale differently with $p$.
+Write a normalized term as $p^{1-g_i}$; then $g_i$ is its margin below a
+full power of $p$. With $d=\Theta(p^\epsilon)$,
+$K=\Theta(p^{\epsilon c})$, and $\ell=\Theta(p^{1-\epsilon})$,
+the margins are
+\begin{align*}
+ g_1&=1-\epsilon(1+c),&g_2&=\epsilon c(1-\tau),\\
+ g_3&=\epsilon(1-\lambda'),&g_4&=1-\tau-\epsilon(2-\tau),\\
+ g_5&=\tfrac14-\delta-\tfrac32\epsilon,&g_6&=1-\delta-\epsilon,\\
+ g_7&=\epsilon.&&
+\end{align*}
+The total is controlled by the \emph{smallest} margin. Making an already
+large margin larger may have no effect on the headline exponent.
+
+\explfigure{10-margins}{The original parameter choice has a clear bottleneck.}{
+These values are computed from exact rational parameters in the original
+source, not estimated from timings. The horizontal scale is $-\log_2g_i$:
+longer bars mean smaller savings. Chunk exchanges have $g_2=2^{-181}$;
+the chosen final saving is $\kappa=2^{-182}$.}
+
+\paragraph{Read one row all the way through.}
+For transform-layout exchanges, there are $O(p/K)$ swaps of width $K$.
+Each costs $O(VK^\tau)$. Thus the total is
+\[
+ O(VpK^{\tau-1})
+ =O\bigl(Vp^{1-\epsilon c(1-\tau)}\bigr).
+\]
+This is exactly the second margin $g_2$. The small quantities multiply:
+a small width-growth exponent $\epsilon c$ and a small swap saving
+$1-\tau$ yield an even smaller final margin. This explains why an impressive
+local idea may produce a very small asymptotic exponent in the whole algorithm.
+
+\paragraph{Why strict slack is reserved.}
+Let $G=\min_i g_i$. Fixed powers of $\log p$ can be absorbed if
+$\kappa<G$, since $(\log p)^C=o(p^{G-\kappa})$ for fixed $C$.
+The original conservative choice gives $G=2\kappa$. The final cost then fits
+\[
+ O(Vp^{1-\kappa})=O\bigl(n(\log n)^{1-\kappa}\bigr).
+\]
+This argument is eventual. A single fixed cutoff covers all the required
+inequalities; below it, the machine uses schoolbook multiplication. Enlarging
+the big-$O$ constant covers the finite set of smaller lengths. Establishing
+the complete uniform implementation remains part of the proof obligation.
+
+\paragraph{What later community refinements are trying to improve.}
+Some refinements change a finite network or the price of its frame transitions;
+others reuse workspace, change how stages are combined, or improve an outer
+parameter choice. These operate at different layers. A new finite profile
+must still be bound to its actual circuit and then passed through the applicable
+recurrence and cost analysis. The original seven-margin diagram is a reading
+aid for this frozen manuscript, not a claim that every later construction uses
+the same accounting or that it displays the latest community witness.
+
+\takeaway{Exact recovery needs a strict error bound; the exponent needs a
+strict margin in every dominant cost. Both must refer to the same algorithm.}
+\sourceanchor{08-assembly.tex, eq:fixed-parameters; eq:margin-list; eq:final-error}

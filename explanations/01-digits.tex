@@ -1,0 +1,48 @@
+\guidechapter{From long multiplication to convolution}{A complete small example.}
+
+Write an integer in radix $B$ as $a_0+a_1B+\cdots+a_{q-1}B^{q-1}$.
+The digits are listed from least significant to most significant. For the
+explanation take $B=10$; the paper uses a power of two so that digit splitting
+is a binary operation. Introduce a formal variable $x$ and form
+$A(x)=\sum_i a_i x^i$. Then the original integer is exactly $A(B)$.
+
+For two inputs, the coefficients of the polynomial product satisfy
+\[
+ A(x)B(x)=\sum_k c_k x^k,\qquad c_k=\sum_{i+j=k}a_i b_j.
+\]
+The second input polynomial is denoted $B(x)$ here; the unparenthesized $B$
+still denotes the radix. The sum defining $c_k$ is \emph{convolution}.
+It groups digit products that have the same place value. Unlike digits,
+the coefficients $c_k$ can exceed the radix. Carry propagation repairs that
+after the coefficients have been computed.
+
+\explfigure{01-convolution}{One multiplication, three representations.}{
+The coefficient list $[12,11,2]$ belongs to powers $x^0,x^1,x^2$.
+The carry is passed from lower to higher positions. The result is $322$.}
+
+For $23\cdot14$, the coefficient of $x$ is $3\cdot1+2\cdot4=11$.
+At position zero, $12$ writes digit $2$ and carries $1$. Position one
+receives $11+1=12$, again writing $2$ and carrying $1$. Position two
+receives $2+1=3$. This is ordinary multiplication reorganized, with no
+approximation so far.
+
+\paragraph{Why transforms enter.}
+For a suitable transform $F$, convolution can be recovered from products of
+corresponding transform entries. Evaluating two polynomials at many roots of
+unity, multiplying those values, and transforming back replaces many
+cross-products by structured additions and pointwise products. The benefit
+depends on computing the transforms and arranging their inputs cheaply.
+The paper's transforms are normalized, so known scale factors must be put back;
+the slogan ``transform, multiply, inverse transform'' hides those factors.
+
+\paragraph{Why padding is necessary.}
+A cyclic convolution treats positions modulo a length $S$. A contribution at
+position $S$ then wraps to position zero. That is useful algebraically but
+would corrupt this integer product. For degree at most $2q-2$, choosing
+$S>2q-2$ and padding unused entries with zero prevents nonzero wraparound.
+The original assembly proves its chosen prime-axis product has enough capacity.
+It also bounds each coefficient before choosing its storage precision.
+
+\takeaway{The hard task is now to compute all convolution coefficients
+cheaply and accurately enough to recover the integers, then carry once.}
+\sourceanchor{00-introduction.tex; 08-assembly.tex, eq:capacity}

@@ -1,0 +1,59 @@
+\guidechapter{What follows, and what still needs checking}{Read before the final corollaries and appendix.}
+
+\paragraph{Division and square root.}
+Fast multiplication is a building block for other arithmetic. Newton-style
+iterations improve reciprocal or square-root approximations at geometrically
+increasing precisions. If the cost at precision $n$ is $M(n)$ and the smaller
+stages cost $M(n/2),M(n/4),\ldots$, the sum is controlled by the largest stage
+for the regular bound in this manuscript. Approximate answers must still be
+corrected: division verifies quotient and remainder, and integer square root
+uses exact square comparisons. An approximation routine alone is not an exact
+division or floor-square-root algorithm.
+
+\paragraph{Matrix transposition.}
+The paper invokes an external reduction from multiplication to rearranging a
+row-major matrix into column-major order. It accounts for the total number of
+matrix bits, not just its side length. This is a result about data permutation.
+It is not a claim about the exponent of matrix multiplication, which is a
+different problem. The reduction and its input-format conversions retain their
+own assumptions and costs.
+
+\paragraph{The grouped-rectangle appendix.}
+The appendix extends packed address manipulations to a collection of complete
+rectangular blocks. ``Rectangle'' refers to a Cartesian product of address
+ranges, not a geometric approximation to arbitrary data. Full payloads and
+destination information must be charged when exceptional records are extracted
+and repaired. This material supports layout details rather than introducing a
+separate headline improvement.
+
+\paragraph{A practical reading checklist.}
+When evaluating a proposed improvement, ask these questions in order:
+\begin{enumerate}
+\item What exact scalar operation does the emitted circuit perform, with
+arbitrary initial scratch values? Does it restore the promised workspace?
+\item Do all incidences of each gate have the required common frame? Are
+all changed operators, signs, source contributions, and endpoints included?
+\item Does the paid rank profile describe that circuit, rather than a relaxed
+or schematic construction? Are finite-field specializations justified?
+\item Does the recursive implementation truly give each child volume $V/W$,
+with routing, padding, copying, and restoration charged?
+\item Do the precision and resampling contracts still apply to the new layouts?
+\item Are every final cost margin and the recovery error strictly within
+their required limits for the same parameter choice?
+\end{enumerate}
+These questions separate algebra, implementation, and asymptotic analysis.
+A success at one level is useful evidence at that level; it does not silently
+discharge the others.
+
+\paragraph{Verification performed for this edition.}
+The frozen original files were checked against their supplied SHA-256 manifest.
+The digit-convolution example, the four-update restoration identity on 343
+integer triples, the two-axis butterfly example, and all seven original
+rational margins were recomputed. The figures are generated from those
+examples or from explicitly labeled schematic identities. Compilation and
+rendered-page inspection check document integrity and readability. None of
+these actions constitutes a new audit of the full multiplication theorem.
+
+\takeaway{The guide explains the proof's architecture and its interfaces.
+The following source material supplies the detailed arguments; independent
+validation of the complete theorem is a separate research task.}

@@ -1,0 +1,47 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm,mathrsfs,mathtools,booktabs,array,longtable}
+\usepackage[margin=1in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black,pdftitle={Integer multiplication below n log n},pdfauthor={OpenAI}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\norm}[1]{\lVert#1\rVert_\infty}
+\input{explanation-style.tex}
+\hypersetup{pdftitle={Integer multiplication below n log n: illustrated reading edition},pdfauthor={Explanatory edition prepared with Codex; original paper by OpenAI}}
+\title{Integer multiplication below $n\log n$\\[8pt]\large An illustrated reading edition}
+\author{Original manuscript: OpenAI\\[5pt]\small Added explanations and figures prepared with OpenAI Codex}
+\date{October 12, 2026\\\small Original manuscript dated September 23, 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+A guided explanation of the original argument, with ten new figures,
+worked arithmetic examples, a map of the recursive construction, and explicit
+distinctions between source theorem claims, illustrative calculations, and
+conditional proof interfaces. The exposition begins with digit convolution
+and builds toward frame geometry, tape recurrences, transforms, and exact
+recovery. It is not a new proof or an official revision of the source paper.
+\end{abstract}
+\tableofcontents\clearpage
+\input{explanations/00-orientation.tex}
+\input{explanations/01-digits.tex}
+\input{explanations/02-tapes.tex}
+\input{explanations/03-networks.tex}
+\input{explanations/04-recursion.tex}
+\input{explanations/05-butterflies.tex}
+\input{explanations/06-transforms.tex}
+\input{explanations/07-resampling.tex}
+\input{explanations/08-assembly.tex}
+\input{explanations/09-consequences.tex}
+\input{explanations/10-glossary.tex}
+\end{document}

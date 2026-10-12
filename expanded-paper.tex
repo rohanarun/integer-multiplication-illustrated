@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm,mathrsfs,mathtools,booktabs,array,longtable}
+\usepackage[margin=1in]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black,pdftitle={Integer multiplication below n log n},pdfauthor={OpenAI}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\norm}[1]{\lVert#1\rVert_\infty}
+\input{explanation-style.tex}
+\hypersetup{pdftitle={Integer multiplication below n log n: illustrated reading edition},pdfauthor={Explanatory edition prepared with Codex; original paper by OpenAI}}
+\title{Integer multiplication below $n\log n$\\[8pt]\large An illustrated reading edition}
+\author{Original manuscript: OpenAI\\[5pt]\small Added explanations and figures prepared with OpenAI Codex}
+\date{October 12, 2026\\\small Original manuscript dated September 23, 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+A guided explanation of the original argument, with ten new figures,
+worked arithmetic examples, a map of the recursive construction, and explicit
+distinctions between source theorem claims, illustrative calculations, and
+conditional proof interfaces. The exposition begins with digit convolution
+and builds toward frame geometry, tape recurrences, transforms, and exact
+recovery. It is not a new proof or an official revision of the source paper.
+\end{abstract}
+
+\noindent\textbf{Full annotated edition.} Added explanatory chapters precede
+the relevant original sections. The original proofs and numerical claims
+are reproduced from the frozen source, with their original attribution.
+Their reproduction is not an independent endorsement of the asserted theorem.
+\tableofcontents
+\clearpage
+\input{explanations/00-orientation.tex}
+\input{explanations/01-digits.tex}
+\clearpage\section*{Original abstract (reproduced source claim)}
+\addcontentsline{toc}{section}{Original abstract}
+\noindent The following is the original author's abstract, preserved verbatim.
+See the opening explanation for this edition's verification scope.
+\begin{quote}
+
+We give a deterministic algorithm that multiplies two $n$-bit integers
+in $O(n(\lg n)^{1-\kappa})$ worst-case time, with
+$\kappa=2^{-182}$, on one fixed finite-alphabet Turing machine with a
+fixed finite number of one-dimensional tapes. The algorithm is exact
+for every input length and disproves the $n\log n$ optimality conjecture
+of Sch\"onhage and Strassen in this model.
+\end{quote}
+\par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
+\input{original/sections/00-introduction.tex}
+\input{explanations/02-tapes.tex}
+\par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
+\input{original/sections/02-streams.tex}
+\input{explanations/03-networks.tex}
+\par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
+\input{original/sections/03-motifs.tex}
+\input{explanations/04-recursion.tex}
+\par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
+\input{original/sections/04-swap.tex}
+\input{explanations/05-butterflies.tex}
+\par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
+\input{original/sections/05-layers.tex}
+\input{explanations/06-transforms.tex}
+\par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
+\input{original/sections/06-transforms.tex}
+\input{explanations/07-resampling.tex}
+\par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
+\input{original/sections/07-resampling.tex}
+\input{explanations/08-assembly.tex}
+\par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
+\input{original/sections/08-assembly.tex}
+\input{explanations/09-consequences.tex}
+\par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
+\input{original/sections/09-exact-arithmetic.tex}
+\par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
+\input{original/sections/10-transposition.tex}
+\appendix
+\par\bigskip\Needspace{8\baselineskip}\hrule\medskip\noindent{\small\textcolor{readerblue}{Original manuscript continues below.}}\par\medskip
+\input{original/sections/11-grouped-rectangles.tex}
+\input{explanations/10-glossary.tex}
+\clearpage
+\bibliographystyle{plain}
+\bibliography{original/references}
+\end{document}

@@ -1,0 +1,65 @@
+\guidechapter{How a finite rank saving becomes an exponent}{Read before address interchange.}
+
+Let $C(V,f)$ be a recursive cost for volume $V$ and width parameter $f$.
+One schematic recurrence underlying the argument is
+\[
+ C(V,mf)\le s\,C(V/W,f)+O(V).
+\]
+The full paper includes layout and descriptor conditions; this display isolates
+the essential scaling. The parent invokes $s$ smaller operations, each acting
+on a role stream of volume $V/W$. Divide by $V$ and write $a(f)$ for a
+uniform bound on cost per unit volume. Then
+\[
+ a(mf)\le(s/W)a(f)+O(1).
+\]
+If $a(f)$ behaves like $f^q$, its recursive contribution scales by $m^q$.
+The critical comparison is therefore
+\[
+ \frac{s}{W}<m^q<m,\qquad q<1.
+\]
+The final proof uses strict inequalities so that overhead can be absorbed.
+
+\explfigure{05-recursion}{Small children can outweigh a large call count.}{
+The plot is an illustrative recurrence with $m=2$, $W=2$, $s=3$;
+it is not the paper's network and is not a runtime benchmark. Its recursive
+exponent is $\log_2(3/2)\approx0.585$.}
+
+\paragraph{Why $s<Wm$ is decisive.}
+A width that grows by $m$ would normally cost a factor $m$. The recursive
+contribution grows by $s/W$ instead. If $s=Wm$, this comparison gives no strict
+power saving. If $s<Wm$, an exponent below one can sit strictly above
+$\log_m(s/W)$. The source constructs two such inequalities, one for address
+interchange and one for numerical layers. Their rational upper exponents are
+called $\tau$ and $\sigma$.
+
+\paragraph{A tiny deficit still gives a positive gap.}
+Define $\eta=(Wm-s)/(Wm)$. Algebra gives
+\[
+ \log_m(s/W)=1+\frac{\log(1-\eta)}{\log m}.
+\]
+For $0<\eta<1$, the logarithm in the numerator is negative. When $\eta$ is
+small, the gap is approximately $\eta/\log m$. Approximation helps intuition;
+the source uses exact rational deficits and strict exponential inequalities to
+certify a rational exponent. Its original choice is
+$\tau=\sigma=1-2^{-50}$, not the visibly large saving in the toy plot.
+
+\paragraph{Why a shear is easier to build than a swap.}
+An address shear updates one block by a linear combination of another:
+$(H,D)\mapsto(H+AD,D)$. The paper factors a rank-$a$ rational matrix $A$
+into two invertible triangular factors and a partial permutation with $a$
+pivots. Triangular updates follow tape order cheaply. Each pivot needs one
+smaller interchange. Thus the expensive-call count is the rank $a$.
+A suitable fixed odd prime makes the required rational coefficients and
+inverses valid modulo its powers. Denominators and invertibility cannot be
+ignored when transferring a rational identity to modular addresses.
+
+\paragraph{The unglamorous conditions are essential.}
+Real field widths need not be powers of $m$. Row counts may not divide by
+$W$. Some layouts contain spectators between active fields. The following
+source section removes these restrictions and pays for padding and cleanup.
+The toy recurrence alone is not a proof of those implementation contracts.
+
+\takeaway{The finite certificate supplies a strict deficit. The tape
+implementation must preserve its $V/W$ normalization for that deficit to
+become an exponent saving.}
+\sourceanchor{03-motifs.tex, eq:explicit-motif-exponents; 04-swap.tex}
