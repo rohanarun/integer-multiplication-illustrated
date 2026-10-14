@@ -1,5 +1,7 @@
 # Integer multiplication, illustrated
 
+Part of [OpenAI math, illustrated](https://github.com/rohanarun/openai-math-illustrated), now including reading editions for van der Waerden numbers, Sidorenko, unit distances, sensitivity, and matrix multiplication.
+
 How can multiplying enormous integers become cheaper than doing a full round of work at every logarithmic scale? This reading edition explains the proposed answer with **24 mathematical illustrations**, concrete examples, and the original proofs alongside the explanations.
 
 - **[Read the illustrated guide — 31 pages](output/pdf/illustrated-guide.pdf)**
